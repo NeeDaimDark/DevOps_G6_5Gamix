@@ -15,9 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.java.binaries>target/classes</sonar.java.binaries>
-		<maven-jar-plugin.version>3.8.1</maven-jar-plugin.version>
-    <sonar.java.exclusions>com/sun/tools/javac/tree/JCTree$JCImport qualid</sonar.java.exclusions>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,9 +58,6 @@
 	<build>
 		<plugins>
 			<plugin>
-			<goals>
-        <goal>compile</goal>
-      </goals>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -72,7 +67,6 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					
 				</configuration>
 			</plugin>
 		</plugins>
