@@ -1,3 +1,5 @@
+package tn.esprit.spring;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -6,7 +8,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.TypeCourse;
+import tn.esprit.spring.entities.Support;  // Add this import statement
 import tn.esprit.spring.repositories.ICourseRepository;
+import tn.esprit.spring.services.CourseServicesImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +37,8 @@ class CourseServicesTest {
     @Test
     void testRetrieveAllCourses() {
         // Prepare mock data
-        Course course1 = new Course(1L, 1, TypeCourse.COLLECTIVE_CHILDREN, Support.ONLINE, 100.0F, 60, null);
-        Course course2 = new Course(2L, 2, TypeCourse.COLLECTIVE_ADULT, Support.OFFLINE, 150.0F, 90, null);
+        Course course1 = new Course(1L, 1, TypeCourse.COLLECTIVE_CHILDREN, Support.SKI, 100.0F, 60, null);
+        Course course2 = new Course(2L, 2, TypeCourse.COLLECTIVE_ADULT, Support.SNOWBOARD, 150.0F, 90, null);
         List<Course> courses = Arrays.asList(course1, course2);
 
         // Configure the behavior of the mock
