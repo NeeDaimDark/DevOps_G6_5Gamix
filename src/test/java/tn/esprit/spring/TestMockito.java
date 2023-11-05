@@ -1,4 +1,4 @@
-
+package tn.esprit.spring;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,13 +15,12 @@ import tn.esprit.spring.services.CourseServicesImpl;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class CourseServicesTest {
+class TestMockito {
 
     @InjectMocks
     CourseServicesImpl courseServices;
