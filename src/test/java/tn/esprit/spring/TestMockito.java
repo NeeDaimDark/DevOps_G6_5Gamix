@@ -7,29 +7,31 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import tn.esprit.spring.entities.Registration;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.entities.Subscription;
 import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.repositories.ISubscriptionRepository;
 import tn.esprit.spring.services.SkierServicesImpl;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class SkierServiceTest {
+class TestMokito {
 
     @InjectMocks
     SkierServicesImpl skierServices;
 
     @Mock
     ISkierRepository skierRepository;
+
+    @Mock
+    ISubscriptionRepository subscriptionRepository;
 
     @BeforeEach
     void init() {
@@ -55,20 +57,19 @@ class SkierServiceTest {
     }
 
     @Test
-    void testRetrieveSkierByNumSkier() {
+    void testAddSkier() {
         // Prepare mock data
-        Long numSkier = 1L;
-        Skier skier = new Skier(numSkier, "John", "Doe", LocalDate.of(1990, 5, 15), "City1", new Subscription(), new HashSet<>(), new HashSet<>());
+        Skier skier = new Skier(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "City1", new Subscription(), new HashSet<>(), new HashSet<>());
 
         // Configure the behavior of the mock
-        Mockito.when(skierRepository.findByNumSkier(numSkier)).thenReturn(skier);
+        Mockito.when(skierRepository.save(skier)).thenReturn(skier);
 
         // Call the service method
-        Skier retrievedSkier = skierServices.retrieveSkierByNumSkier(numSkier);
+        Skier addedSkier = skierServices.addSkier(skier);
 
         // Assertions
-        assertNotNull(retrievedSkier);
-        assertEquals(numSkier, retrievedSkier.getNumSkier());
+        assertNotNull(addedSkier);
+        assertEquals(skier, addedSkier);
     }
 
     // Add more test methods for other service methods as needed
