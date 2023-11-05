@@ -7,26 +7,29 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.TypeCourse;
-import tn.esprit.spring.entities.Support;  // Add this import statement
-import tn.esprit.spring.repositories.ICourseRepository;
-import tn.esprit.spring.services.CourseServicesImpl;
+import tn.esprit.spring.entities.Registration;
+import tn.esprit.spring.entities.Skier;
+import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.services.SkierServicesImpl;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class TestMockito {
+class SkierServiceTest {
 
     @InjectMocks
-    CourseServicesImpl courseServices;
+    SkierServicesImpl skierServices;
 
     @Mock
-    ICourseRepository courseRepository;
+    ISkierRepository skierRepository;
 
     @BeforeEach
     void init() {
@@ -34,21 +37,38 @@ class TestMockito {
     }
 
     @Test
-    void testRetrieveAllCourses() {
+    void testRetrieveAllSkiers() {
         // Prepare mock data
-        Course course1 = new Course(1L, 1, TypeCourse.COLLECTIVE_CHILDREN, Support.SKI, 100.0F, 60, null);
-        Course course2 = new Course(2L, 2, TypeCourse.COLLECTIVE_ADULT, Support.SNOWBOARD, 150.0F, 90, null);
-        List<Course> courses = Arrays.asList(course1, course2);
+        Skier skier1 = new Skier(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "City1", new Subscription(), new HashSet<>(), new HashSet<>());
+        Skier skier2 = new Skier(2L, "Alice", "Smith", LocalDate.of(1985, 8, 25), "City2", new Subscription(), new HashSet<>(), new HashSet<>());
+        List<Skier> skiers = Arrays.asList(skier1, skier2);
 
         // Configure the behavior of the mock
-        Mockito.when(courseRepository.findAll()).thenReturn(courses);
+        Mockito.when(skierRepository.findAll()).thenReturn(skiers);
 
         // Call the service method
-        List<Course> retrievedCourses = courseServices.retrieveAllCourses();
+        List<Skier> retrievedSkiers = skierServices.retrieveAllSkiers();
 
         // Assertions
-        assertNotNull(retrievedCourses);
-        assertEquals(2, retrievedCourses.size());
+        assertNotNull(retrievedSkiers);
+        assertEquals(2, retrievedSkiers.size());
+    }
+
+    @Test
+    void testRetrieveSkierByNumSkier() {
+        // Prepare mock data
+        Long numSkier = 1L;
+        Skier skier = new Skier(numSkier, "John", "Doe", LocalDate.of(1990, 5, 15), "City1", new Subscription(), new HashSet<>(), new HashSet<>());
+
+        // Configure the behavior of the mock
+        Mockito.when(skierRepository.findByNumSkier(numSkier)).thenReturn(skier);
+
+        // Call the service method
+        Skier retrievedSkier = skierServices.retrieveSkierByNumSkier(numSkier);
+
+        // Assertions
+        assertNotNull(retrievedSkier);
+        assertEquals(numSkier, retrievedSkier.getNumSkier());
     }
 
     // Add more test methods for other service methods as needed
