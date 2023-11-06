@@ -16,7 +16,7 @@ services:
     depends_on:
       - mysqldb
     build: ./
-    image: firaskill12/achat-image:abc
+    image: aminekouba123/spring:latest
     ports:
       - 8089:8089
     environment:
